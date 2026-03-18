@@ -275,6 +275,19 @@ img {
   margin-bottom: 32px;
 }
 
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
 .form-group {
   margin-bottom: 20px;
 }
