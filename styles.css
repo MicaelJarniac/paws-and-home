@@ -89,8 +89,14 @@ img {
 
 .main-nav ul {
   display: flex;
-  gap: 24px;
+  gap: 16px;
   list-style: none;
+}
+
+.main-nav li + li::before {
+  content: "·";
+  margin-right: 16px;
+  color: var(--color-border);
 }
 
 .main-nav a {
