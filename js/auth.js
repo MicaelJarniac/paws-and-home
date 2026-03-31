@@ -7,8 +7,8 @@
 (function () {
   "use strict";
 
-  const VALID_USER = "admin";
-  const VALID_PASS = "admin";
+  const VALID_USER = "teste@teste";
+  const VALID_PASS = "teste";
   const SESSION_KEY = "paws-auth";
 
   const isLoggedIn = () => sessionStorage.getItem(SESSION_KEY) === "true";

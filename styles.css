@@ -237,6 +237,35 @@ img {
   transform: translateY(-1px);
 }
 
+.btn-adopt {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.btn-adopt:hover,
+.btn-adopt:focus-visible {
+  background: #e5577a;
+  transform: translateY(-1px);
+}
+
+.btn-adopt.btn-disabled {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-adopt.btn-disabled:hover {
+  background: var(--color-border);
+  transform: none;
+}
+
 .btn-full {
   display: block;
   width: 100%;

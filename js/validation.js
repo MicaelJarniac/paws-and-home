@@ -17,6 +17,25 @@
 
   const feedback = document.getElementById("form-feedback");
 
+  // ── Pre-fill from URL params (linked from pet cards) ───────────────
+  const params = new URLSearchParams(window.location.search);
+  const prefillPet = params.get("pet");
+  const prefillType = params.get("type");
+
+  if (prefillPet) {
+    const petNameInput = document.getElementById("pet-name");
+    if (petNameInput) petNameInput.value = prefillPet;
+  }
+
+  if (prefillType) {
+    const petTypeSelect = document.getElementById("pet-type");
+    if (petTypeSelect) {
+      petTypeSelect.value = prefillType;
+      // Mark as valid since it's pre-filled
+      petTypeSelect.classList.add("input-success");
+    }
+  }
+
   // ── Validation rules ──────────────────────────────────────────────
   const rules = {
     "full-name": {
