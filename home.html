@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find your forever friend at Paws & Home — browse our adorable animals available for adoption.">
+  <title>Paws &amp; Home — Pet Adoption</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ===== Header & Navigation ===== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="home.html" class="logo" aria-label="Paws and Home — Home">
+        🐾 Paws <span>&amp;</span> Home
+      </a>
+
+      <!-- Hamburger toggle (mobile) -->
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <nav class="main-nav" id="nav-menu" aria-label="Primary navigation">
+        <ul>
+          <li><a href="home.html" aria-current="page">Home</a></li>
+          <li><a href="#pets">Adopt</a></li>
+          <li><a href="#about">About&nbsp;Us</a></li>
+          <li><a href="adopt.html">Apply</a></li>
+          <li><a href="#" id="logout-link">Log&nbsp;Out</a></li>
+        </ul>
+      </nav>
+
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Toggle dark mode"
+        title="Toggle dark mode"
+      >🌙</button>
+    </div>
+  </header>
+
+  <!-- ===== Main Content ===== -->
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Every Pet Deserves a&nbsp;Home</h1>
+      <p>Browse our adorable residents and find a furry companion who's been waiting just for you.</p>
+      <a href="#pets" class="btn btn-primary">Meet Our Pets</a>
+    </section>
+
+    <!-- Available Pets -->
+    <section id="pets" class="pets-section" aria-labelledby="pets-heading">
+      <h2 id="pets-heading">Available for Adoption</h2>
+
+      <div class="pets-grid" role="list">
+
+        <!-- Pet Card 1 -->
+        <article class="pet-card" role="listitem">
+          <img
+            src="images/buddy.jpg"
+            alt="Buddy, a red-and-white shepherd mix on sandy ground looking at the camera"
+            loading="lazy"
+          >
+          <div class="pet-card-body">
+            <h3>Buddy</h3>
+            <p class="pet-meta">Dog · Shepherd Mix · 2 years old</p>
+            <p>Bright, alert, and full of outdoor energy. Buddy loves long walks, playtime, and staying close to his people.</p>
+            <span class="badge badge-available">Available</span>
+          </div>
+        </article>
+
+        <!-- Pet Card 2 -->
+        <article class="pet-card" role="listitem">
+          <img
+            src="images/luna.jpg"
+            alt="Luna, a tabby cat with green eyes looking alert outdoors"
+            loading="lazy"
+          >
+          <div class="pet-card-body">
+            <h3>Luna</h3>
+            <p class="pet-meta">Cat · Brown Tabby · 2 years old</p>
+            <p>Curious and confident, Luna loves to observe everything around her and is always ready for her next little adventure.</p>
+            <span class="badge badge-available">Available</span>
+          </div>
+        </article>
+
+        <!-- Pet Card 3 -->
+        <article class="pet-card" role="listitem">
+          <img
+            src="images/max.jpg"
+            alt="Max, a small black-and-tan terrier mix with upright ears"
+            loading="lazy"
+          >
+          <div class="pet-card-body">
+            <h3>Max</h3>
+            <p class="pet-meta">Dog · Terrier Mix · 1 year old</p>
+            <p>Smart, watchful, and affectionate once he warms up. Max is a small companion with a big personality.</p>
+            <span class="badge badge-pending">Adoption Pending</span>
+          </div>
+        </article>
+
+        <!-- Pet Card 4 -->
+        <article class="pet-card" role="listitem">
+          <img
+            src="images/milo.jpg"
+            alt="Milo, a fluffy orange long-haired cat resting indoors"
+            loading="lazy"
+          >
+          <div class="pet-card-body">
+            <h3>Milo</h3>
+            <p class="pet-meta">Cat · Domestic Longhair · 4 years old</p>
+            <p>Calm, regal, and very photogenic. Milo enjoys cozy indoor spots and a relaxed daily routine.</p>
+            <span class="badge badge-available">Available</span>
+          </div>
+        </article>
+
+        <!-- Pet Card 5 -->
+        <article class="pet-card" role="listitem">
+          <img
+            src="images/daisy.jpg"
+            alt="Daisy, a small fluffy white dog running joyfully across a grassy field"
+            loading="lazy"
+          >
+          <div class="pet-card-body">
+            <h3>Daisy</h3>
+            <p class="pet-meta">Dog · Small Poodle Mix · 3 years old</p>
+            <p>Playful and joyful, Daisy loves running in open spaces and bringing happy energy wherever she goes.</p>
+            <span class="badge badge-available">Available</span>
+          </div>
+        </article>
+
+        <!-- Pet Card 6 -->
+        <article class="pet-card" role="listitem">
+          <img
+            src="images/cinnamon.jpg"
+            alt="Cinnamon, a small white rabbit with upright ears on a white background"
+            loading="lazy"
+          >
+          <div class="pet-card-body">
+            <h3>Cinnamon</h3>
+            <p class="pet-meta">Rabbit · Dwarf Mix · 1 year old</p>
+            <p>Soft, gentle, and curious. Cinnamon is a sweet little rabbit who enjoys calm spaces and gentle handling.</p>
+            <span class="badge badge-available">Available</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about-section" aria-labelledby="about-heading">
+      <div class="container">
+        <h2 id="about-heading">About Paws &amp; Home</h2>
+        <p>
+          Founded in 2018, Paws &amp; Home is a no-kill shelter dedicated to rescuing,
+          rehabilitating, and rehoming animals in need. Every animal in our care receives
+          veterinary attention, socialization, and lots of love while waiting for their
+          forever family.
+        </p>
+        <p>
+          We've placed over <strong>2,500 pets</strong> in loving homes and counting.
+          Whether you're looking for a playful puppy or a mellow senior cat, we'll help
+          you find the perfect match.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Paws &amp; Home. Made with ❤️ for animals everywhere.</p>
+    <p>
+      <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a>
+    </p>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

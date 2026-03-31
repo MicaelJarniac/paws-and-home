@@ -3,210 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Find your forever friend at Paws & Home — a pet adoption shelter connecting loving families with animals in need.">
-  <title>Paws &amp; Home — Pet Adoption</title>
+  <meta name="description" content="Log in to Paws & Home — a pet adoption shelter connecting loving families with animals in need.">
+  <title>Log In — Paws &amp; Home</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <!-- Skip link: lets keyboard/screen-reader users jump past navigation -->
+<body class="page-login">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <!-- ===== Header & Navigation ===== -->
-  <header class="site-header">
-    <div class="container">
-      <a href="#" class="logo" aria-label="Paws and Home — Home">
-        🐾 Paws <span>&amp;</span> Home
-      </a>
+  <main id="main-content" class="login-wrapper">
+    <div class="login-card">
+      <h1 class="login-logo" aria-label="Paws and Home">🐾 Paws <span>&amp;</span> Home</h1>
+      <p class="login-subtitle">Shelter volunteer portal</p>
 
-      <nav class="main-nav" aria-label="Primary navigation">
-        <ul>
-          <li><a href="#pets">Adopt</a></li>
-          <li><a href="#about">About&nbsp;Us</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
+      <!-- Live region: announced by screen readers when content changes -->
+      <div id="login-feedback" class="form-feedback" role="alert" aria-live="assertive"></div>
+
+      <form id="login-form" action="#" method="post" aria-label="Login form" novalidate>
+        <fieldset>
+          <legend class="visually-hidden">Enter your credentials</legend>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              autocomplete="username"
+              required
+              aria-required="true"
+              aria-describedby="username-error"
+            >
+            <span id="username-error" class="field-error" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              aria-required="true"
+              aria-describedby="password-error"
+            >
+            <span id="password-error" class="field-error" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Log In</button>
+        </fieldset>
+      </form>
+
+      <p class="login-hint">
+        <small>Hint: <strong>admin</strong> / <strong>admin</strong></small>
+      </p>
     </div>
-  </header>
-
-  <!-- ===== Main Content ===== -->
-  <main id="main-content">
-
-    <!-- Hero -->
-    <section class="hero" aria-labelledby="hero-heading">
-      <h1 id="hero-heading">Every Pet Deserves a&nbsp;Home</h1>
-      <p>Browse our adorable residents and find a furry companion who's been waiting just for you.</p>
-      <a href="#pets" class="btn btn-primary">Meet Our Pets</a>
-    </section>
-
-    <!-- Available Pets -->
-    <section id="pets" class="pets-section" aria-labelledby="pets-heading">
-      <h2 id="pets-heading">Available for Adoption</h2>
-
-      <div class="pets-grid" role="list">
-
-        <!-- Pet Card 1 -->
-        <article class="pet-card" role="listitem">
-          <img
-            src="images/buddy.jpg"
-            alt="Buddy, a red-and-white shepherd mix on sandy ground looking at the camera"
-          >
-          <div class="pet-card-body">
-            <h3>Buddy</h3>
-            <p class="pet-meta">Dog · Shepherd Mix · 2 years old</p>
-            <p>Bright, alert, and full of outdoor energy. Buddy loves long walks, playtime, and staying close to his people.</p>
-            <span class="badge badge-available">Available</span>
-          </div>
-        </article>
-
-        <!-- Pet Card 2 -->
-        <article class="pet-card" role="listitem">
-          <img
-            src="images/luna.jpg"
-            alt="Luna, a tabby cat with green eyes looking alert outdoors"
-          >
-          <div class="pet-card-body">
-            <h3>Luna</h3>
-            <p class="pet-meta">Cat · Brown Tabby · 2 years old</p>
-            <p>Curious and confident, Luna loves to observe everything around her and is always ready for her next little adventure.</p>
-            <span class="badge badge-available">Available</span>
-          </div>
-        </article>
-
-        <!-- Pet Card 3 -->
-        <article class="pet-card" role="listitem">
-          <img
-            src="images/max.jpg"
-            alt="Max, a small black-and-tan terrier mix with upright ears"
-          >
-          <div class="pet-card-body">
-            <h3>Max</h3>
-            <p class="pet-meta">Dog · Terrier Mix · 1 year old</p>
-            <p>Smart, watchful, and affectionate once he warms up. Max is a small companion with a big personality.</p>
-            <span class="badge badge-pending">Adoption Pending</span>
-          </div>
-        </article>
-
-        <!-- Pet Card 4 -->
-        <article class="pet-card" role="listitem">
-          <img
-            src="images/milo.jpg"
-            alt="Milo, a fluffy orange long-haired cat resting indoors"
-          >
-          <div class="pet-card-body">
-            <h3>Milo</h3>
-            <p class="pet-meta">Cat · Domestic Longhair · 4 years old</p>
-            <p>Calm, regal, and very photogenic. Milo enjoys cozy indoor spots and a relaxed daily routine.</p>
-            <span class="badge badge-available">Available</span>
-          </div>
-        </article>
-
-        <!-- Pet Card 5 -->
-        <article class="pet-card" role="listitem">
-          <img
-            src="images/daisy.jpg"
-            alt="Daisy, a small fluffy white dog running joyfully across a grassy field"
-          >
-          <div class="pet-card-body">
-            <h3>Daisy</h3>
-            <p class="pet-meta">Dog · Small Poodle Mix · 3 years old</p>
-            <p>Playful and joyful, Daisy loves running in open spaces and bringing happy energy wherever she goes.</p>
-            <span class="badge badge-available">Available</span>
-          </div>
-        </article>
-
-        <!-- Pet Card 6 -->
-        <article class="pet-card" role="listitem">
-          <img
-            src="images/cinnamon.jpg"
-            alt="Cinnamon, a small white rabbit with upright ears on a white background"
-          >
-          <div class="pet-card-body">
-            <h3>Cinnamon</h3>
-            <p class="pet-meta">Rabbit · Dwarf Mix · 1 year old</p>
-            <p>Soft, gentle, and curious. Cinnamon is a sweet little rabbit who enjoys calm spaces and gentle handling.</p>
-            <span class="badge badge-available">Available</span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="about-section" aria-labelledby="about-heading">
-      <div class="container">
-        <h2 id="about-heading">About Paws &amp; Home</h2>
-        <p>
-          Founded in 2018, Paws &amp; Home is a no-kill shelter dedicated to rescuing,
-          rehabilitating, and rehoming animals in need. Every animal in our care receives
-          veterinary attention, socialization, and lots of love while waiting for their
-          forever family.
-        </p>
-        <p>
-          We've placed over <strong>2,500 pets</strong> in loving homes and counting.
-          Whether you're looking for a playful puppy or a mellow senior cat, we'll help
-          you find the perfect match.
-        </p>
-      </div>
-    </section>
-
-    <!-- Contact Form -->
-    <section id="contact" class="contact-section" aria-labelledby="contact-heading">
-      <div class="container">
-        <h2 id="contact-heading">Get in Touch</h2>
-
-        <form action="#" method="post" aria-label="Contact form">
-          <fieldset>
-            <legend>Send us a message</legend>
-
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                autocomplete="name"
-                required
-                aria-required="true"
-              >
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                autocomplete="email"
-                required
-                aria-required="true"
-              >
-            </div>
-
-            <div class="form-group">
-              <label for="message">Your Message</label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                aria-required="true"
-                placeholder="Tell us which pet you're interested in, or ask us anything!"
-              ></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Send Message</button>
-          </fieldset>
-        </form>
-      </div>
-    </section>
-
   </main>
 
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <p>&copy; 2026 Paws &amp; Home. Made with ❤️ for animals everywhere.</p>
-    <p>
-      <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a>
-    </p>
-  </footer>
+  <!-- Theme toggle on login page too -->
+  <button
+    class="theme-toggle"
+    id="theme-toggle"
+    type="button"
+    aria-label="Toggle dark mode"
+    title="Toggle dark mode"
+  >🌙</button>
+
+  <script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
