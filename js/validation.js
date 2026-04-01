@@ -91,6 +91,24 @@
     });
   }
 
+  // ── Phone input mask (auto-format as user types) ────────────────────
+  const phoneInput = document.getElementById("phone");
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      let raw = phoneInput.value.replace(/\D/g, "").slice(0, 11);
+      let formatted = "";
+
+      if (raw.length > 0) formatted += "(";
+      for (let i = 0; i < raw.length; i++) {
+        if (i === 2) formatted += ") ";
+        if (i === 7) formatted += "-";
+        formatted += raw[i];
+      }
+
+      phoneInput.value = formatted;
+    });
+  }
+
   // ── Validation rules ──────────────────────────────────────────────
   const rules = {
     "full-name": {
