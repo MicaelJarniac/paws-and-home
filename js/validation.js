@@ -92,16 +92,21 @@
   }
 
   // ── Phone input mask (auto-format as user types) ────────────────────
+  // Supports both (XX) XXXX-XXXX (10 digits) and (XX) XXXXX-XXXX (11 digits)
   const phoneInput = document.getElementById("phone");
   if (phoneInput) {
     phoneInput.addEventListener("input", function () {
-      let raw = phoneInput.value.replace(/\D/g, "").slice(0, 11);
-      let formatted = "";
+      var raw = phoneInput.value.replace(/\D/g, "").slice(0, 11);
+      var formatted = "";
+      // Position of the hyphen depends on total length:
+      // 11 digits → hyphen after index 6 (5-digit first half)
+      // 10 or fewer → hyphen after index 5 (4-digit first half)
+      var hyphenAt = raw.length === 11 ? 7 : 6;
 
       if (raw.length > 0) formatted += "(";
-      for (let i = 0; i < raw.length; i++) {
+      for (var i = 0; i < raw.length; i++) {
         if (i === 2) formatted += ") ";
-        if (i === 7) formatted += "-";
+        if (i === hyphenAt) formatted += "-";
         formatted += raw[i];
       }
 
@@ -124,7 +129,7 @@
     },
     phone: {
       required: true,
-      pattern: /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
+      pattern: /^\(\d{2}\)\s\d{4,5}-\d{4}$/,
       message: "Please enter a valid phone number, e.g. (19) 99999-9999.",
     },
     cpf: {
