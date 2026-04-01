@@ -36,6 +36,61 @@
     }
   }
 
+  // ── CPF validator (professor-specified logic) ───────────────────────
+  /**
+   * Validates a Brazilian CPF using a custom check-digit algorithm.
+   * Accepts formats: 000.000.000-00 or 00000000000
+   */
+  function validateCPF(cpf) {
+    // Strip dots, keep the hyphen as the separator
+    cpf = cpf.replace(/\./g, "");
+    const parts = cpf.split("-");
+
+    if (parts.length !== 2 || parts[0].length !== 9 || parts[1].length !== 2) {
+      return false;
+    }
+
+    const digits = parts[0];
+    const checkDigits = parts[1];
+
+    let sumForwards = 0;
+    let sumBackwards = 0;
+
+    for (let i = 0; i < 9; i++) {
+      const digit = parseInt(digits[i], 10);
+      if (isNaN(digit)) return false;
+      sumForwards += digit * (1 + i);
+      sumBackwards += digit * (9 - i);
+    }
+
+    const trimTen = (value) => (value === 10 ? 0 : value);
+
+    const expected1 = trimTen(sumForwards % 11);
+    const expected2 = trimTen(sumBackwards % 11);
+
+    return (
+      expected1 === parseInt(checkDigits[0], 10) &&
+      expected2 === parseInt(checkDigits[1], 10)
+    );
+  }
+
+  // ── CPF input mask (auto-format as user types) ─────────────────────
+  const cpfInput = document.getElementById("cpf");
+  if (cpfInput) {
+    cpfInput.addEventListener("input", function () {
+      let raw = cpfInput.value.replace(/\D/g, "").slice(0, 11);
+      let formatted = "";
+
+      for (let i = 0; i < raw.length; i++) {
+        if (i === 3 || i === 6) formatted += ".";
+        if (i === 9) formatted += "-";
+        formatted += raw[i];
+      }
+
+      cpfInput.value = formatted;
+    });
+  }
+
   // ── Validation rules ──────────────────────────────────────────────
   const rules = {
     "full-name": {
@@ -53,6 +108,11 @@
       required: true,
       pattern: /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
       message: "Please enter a valid phone number, e.g. (19) 99999-9999.",
+    },
+    cpf: {
+      required: true,
+      custom: validateCPF,
+      message: "Please enter a valid CPF (000.000.000-00).",
     },
     "pet-type": {
       required: true,
@@ -87,6 +147,8 @@
     } else if (rule.minLength && value.length < rule.minLength) {
       valid = false;
     } else if (rule.pattern && !rule.pattern.test(value)) {
+      valid = false;
+    } else if (rule.custom && value && !rule.custom(value)) {
       valid = false;
     }
 
