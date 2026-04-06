@@ -207,13 +207,15 @@
   // ── Character counter for notes ────────────────────────────────────
   const notes = document.getElementById("notes");
   const counter = document.getElementById("notes-counter");
+  const notesMax = notes
+    ? parseInt(notes.getAttribute("maxlength"), 10) || 500
+    : 500;
 
   if (notes && counter) {
-    const max = parseInt(notes.getAttribute("maxlength"), 10) || 500;
 
     notes.addEventListener("input", function () {
       const len = notes.value.length;
-      counter.textContent = len + " / " + max;
+      counter.textContent = len + " / " + notesMax;
     });
   }
 
@@ -257,7 +259,7 @@
     form.querySelectorAll(".field-error").forEach(function (el) {
       el.textContent = "";
     });
-    if (counter) counter.textContent = "0 / 500";
+    if (counter) counter.textContent = "0 / " + notesMax;
 
     // Scroll feedback into view
     feedback.scrollIntoView({ behavior: "smooth", block: "start" });
