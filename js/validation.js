@@ -212,7 +212,6 @@
     : 500;
 
   if (notes && counter) {
-
     notes.addEventListener("input", function () {
       const len = notes.value.length;
       counter.textContent = len + " / " + notesMax;
