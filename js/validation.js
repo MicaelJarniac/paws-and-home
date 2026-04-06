@@ -260,6 +260,6 @@
     if (counter) counter.textContent = "0 / 500";
 
     // Scroll feedback into view
-    feedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    feedback.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 })();
