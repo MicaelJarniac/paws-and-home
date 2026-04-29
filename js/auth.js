@@ -1,7 +1,7 @@
 /**
  * auth.js — Hardcoded login/logout with sessionStorage.
  *
- * Credentials: admin / admin
+ * Credentials: teste@teste / teste
  * Protected pages check for a session flag; if missing, redirect to login.
  */
 (function () {
@@ -34,22 +34,22 @@
 
       // Clear previous errors
       feedback.textContent = "";
-      feedback.className = "form-feedback";
+      feedback.className = "alert d-none";
       usernameError.textContent = "";
       passwordError.textContent = "";
-      usernameInput.classList.remove("input-error");
-      passwordInput.classList.remove("input-error");
+      usernameInput.classList.remove("is-invalid");
+      passwordInput.classList.remove("is-invalid");
 
       // Validate fields
       if (!usernameInput.value.trim()) {
         usernameError.textContent = "Please enter your username.";
-        usernameInput.classList.add("input-error");
+        usernameInput.classList.add("is-invalid");
         valid = false;
       }
 
       if (!passwordInput.value) {
         passwordError.textContent = "Please enter your password.";
-        passwordInput.classList.add("input-error");
+        passwordInput.classList.add("is-invalid");
         valid = false;
       }
 
@@ -64,7 +64,7 @@
         window.location.replace("home.html");
       } else {
         feedback.textContent = "Invalid username or password. Please try again.";
-        feedback.className = "form-feedback feedback-error";
+        feedback.className = "alert alert-danger";
         passwordInput.value = "";
         passwordInput.focus();
       }
