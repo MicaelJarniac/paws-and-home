@@ -156,6 +156,10 @@
 }
 
 /* Custom Badge Colors (overriding Bootstrap) */
+.pet-card-body .badge {
+  align-self: flex-start;
+}
+
 .badge.bg-success-subtle {
   background-color: #d1fae5 !important;
   color: #065f46;
