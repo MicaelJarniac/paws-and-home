@@ -1,6 +1,6 @@
 # 🐾 Paws & Home
 
-A pet adoption website built with **HTML**, **CSS**, and **JavaScript** as a college assignment.
+A pet adoption website built with **HTML**, **CSS**, **JavaScript**, and **Bootstrap 5.3** as a college assignment.
 
 ## About
 
@@ -8,12 +8,16 @@ Paws & Home is a fictional no-kill animal shelter website where visitors can bro
 
 ## Features
 
-- **Login system** — hardcoded authentication with session management
+- **Login system** — hardcoded authentication with session management (`sessionStorage`)
 - **Pet catalog** — browsable cards with photos, descriptions, and adoption status
+- **"Adopt Me" buttons** — pre-fill the adoption form with the selected pet's info
 - **Adoption form** — multi-section application with real-time field validation
 - **CPF validation** — custom check-digit algorithm with input mask
-- **Dark mode** — toggle with OS preference detection and localStorage persistence
-- **Mobile hamburger menu** — animated toggle with keyboard support (Escape to close)
+- **Phone mask** — auto-formats to (XX) XXXX-XXXX or (XX) XXXXX-XXXX
+- **Dark mode** — Bootstrap 5.3 native `data-bs-theme` with OS preference detection and `localStorage` persistence
+- **Responsive navbar** — Bootstrap collapse with custom animated hamburger icon
+- **Adoption fees table** — tabular data with proper `<thead>`/`<tbody>` and `scope` attributes
+- **How It Works** — ordered process list with numbered step indicators
 - **Accessible** — skip link, ARIA labels, `aria-live` regions, `aria-current`, focus-visible styles, semantic HTML throughout
 - **SEO** — meta descriptions, proper heading hierarchy, descriptive alt text
 
@@ -30,8 +34,33 @@ Paws & Home is a fictional no-kill animal shelter website where visitors can bro
 ## Tech Stack
 
 - HTML5 (semantic elements, ARIA)
-- CSS3 (custom properties, grid, flexbox, dark mode, responsive design)
-- Vanilla JavaScript (no frameworks or libraries)
+- [Bootstrap 5.3](https://getbootstrap.com/) (grid, navbar, cards, forms, table, badges, dark mode)
+- CSS3 (custom overrides on top of Bootstrap — color palette, hero gradient, animations)
+- Vanilla JavaScript (authentication, form validation, dark mode toggle)
+
+## Project Structure
+
+```
+paws-and-home/
+├── index.html          Login page
+├── home.html           Main page (protected)
+├── adopt.html          Adoption form (protected)
+├── privacy.html        Privacy Policy
+├── terms.html          Terms of Service
+├── styles.css          Custom CSS overrides
+├── js/
+│   ├── auth.js         Login/logout with sessionStorage
+│   ├── theme.js        Dark mode toggle (data-bs-theme)
+│   └── validation.js   Form validation, CPF/phone masks
+├── images/
+│   ├── buddy.jpg
+│   ├── luna.jpg
+│   ├── max.jpg
+│   ├── milo.jpg
+│   ├── daisy.jpg
+│   └── cinnamon.jpg
+└── README.md
+```
 
 ## Author
 

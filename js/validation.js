@@ -17,7 +17,7 @@
 
   const feedback = document.getElementById("form-feedback");
 
-  // ── Pre-fill from URL params (linked from pet cards) ───────────────
+  // Pre-fill from URL params (linked from pet cards)
   const params = new URLSearchParams(window.location.search);
   const prefillPet = params.get("pet");
   const prefillType = params.get("type");
@@ -31,12 +31,11 @@
     const petTypeSelect = document.getElementById("pet-type");
     if (petTypeSelect) {
       petTypeSelect.value = prefillType;
-      // Mark as valid since it's pre-filled
-      petTypeSelect.classList.add("input-success");
+      // Mark as valid since it's pre-filled (Bootstrap uses is-valid)
+      petTypeSelect.classList.add("is-valid");
     }
   }
 
-  // ── CPF validator (professor-specified logic) ───────────────────────
   /**
    * Validates a Brazilian CPF using a custom check-digit algorithm.
    * Accepts formats: 000.000.000-00 or 00000000000
@@ -74,7 +73,7 @@
     );
   }
 
-  // ── CPF input mask (auto-format as user types) ─────────────────────
+  // CPF input mask (auto-format as user types)
   const cpfInput = document.getElementById("cpf");
   if (cpfInput) {
     cpfInput.addEventListener("input", function () {
@@ -91,7 +90,7 @@
     });
   }
 
-  // ── Phone input mask (auto-format as user types) ────────────────────
+  // Phone input mask (auto-format as user types)
   // Supports both (XX) XXXX-XXXX (10 digits) and (XX) XXXXX-XXXX (11 digits)
   const phoneInput = document.getElementById("phone");
   if (phoneInput) {
@@ -114,7 +113,7 @@
     });
   }
 
-  // ── Validation rules ──────────────────────────────────────────────
+  // Validation rules
   const rules = {
     "full-name": {
       required: true,
@@ -151,7 +150,7 @@
     },
   };
 
-  // ── Helpers ────────────────────────────────────────────────────────
+  // Helpers
 
   /** Validate a single field. Returns true if valid, false otherwise. */
   function validateField(id) {
@@ -175,9 +174,9 @@
       valid = false;
     }
 
-    // Update UI
-    input.classList.toggle("input-error", !valid);
-    input.classList.toggle("input-success", valid && !!value);
+    // Update UI - Bootstrap uses is-invalid and is-valid
+    input.classList.toggle("is-invalid", !valid);
+    input.classList.toggle("is-valid", valid && !!value);
 
     if (errorSpan) {
       errorSpan.textContent = valid ? "" : rule.message;
@@ -186,7 +185,7 @@
     return valid;
   }
 
-  // ── Attach real-time listeners ─────────────────────────────────────
+  // Attach real-time listeners
   Object.keys(rules).forEach(function (id) {
     const input = document.getElementById(id);
     if (!input) return;
@@ -198,13 +197,13 @@
 
     // Clear error on input (feels responsive)
     input.addEventListener("input", function () {
-      if (input.classList.contains("input-error")) {
+      if (input.classList.contains("is-invalid")) {
         validateField(id);
       }
     });
   });
 
-  // ── Character counter for notes ────────────────────────────────────
+  // Character counter for notes
   const notes = document.getElementById("notes");
   const counter = document.getElementById("notes-counter");
   const notesMax = notes
@@ -218,7 +217,7 @@
     });
   }
 
-  // ── Form submission ────────────────────────────────────────────────
+  // Form submission
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -237,7 +236,7 @@
     if (!allValid) {
       feedback.textContent =
         "Please fix the errors above before submitting.";
-      feedback.className = "form-feedback feedback-error";
+      feedback.className = "alert alert-danger";
 
       // Focus the first invalid field for accessibility
       if (firstInvalid) firstInvalid.focus();
@@ -247,13 +246,13 @@
     // ✅ "Success" — in a real app this would POST to a server
     feedback.textContent =
       "🎉 Application submitted successfully! We'll be in touch within 48 hours.";
-    feedback.className = "form-feedback feedback-success";
+    feedback.className = "alert alert-success";
 
     form.reset();
 
-    // Clear all validation styles
-    form.querySelectorAll(".input-error, .input-success").forEach(function (el) {
-      el.classList.remove("input-error", "input-success");
+    // Clear all validation styles (Bootstrap uses is-invalid and is-valid)
+    form.querySelectorAll(".is-invalid, .is-valid").forEach(function (el) {
+      el.classList.remove("is-invalid", "is-valid");
     });
     form.querySelectorAll(".field-error").forEach(function (el) {
       el.textContent = "";
