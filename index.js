@@ -17,6 +17,18 @@ app.get('/home', (req, res) => {
     res.render('home');
 });
 
+app.get('/adopt', (req, res) => {
+    res.render('adopt');
+});
+
+app.get('/privacy', (req, res) => {
+    res.render('privacy');
+});
+
+app.get('/terms', (req, res) => {
+    res.render('terms');
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
