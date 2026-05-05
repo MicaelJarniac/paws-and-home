@@ -1,0 +1,120 @@
+<%- include('partials/header', {
+  title: 'Paws & Home — Pet Adoption',
+  description: 'Find your forever friend at Paws & Home — browse our adorable animals available for adoption.',
+  currentPage: 'home'
+}) %>
+<%- include('partials/nav') %>
+  <!-- ===== Main Content ===== -->
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="hero py-5" aria-labelledby="hero-heading">
+      <div class="container text-center py-5">
+        <h1 id="hero-heading" class="display-4 mb-3">Every Pet Deserves a&nbsp;Home</h1>
+        <p class="lead text-muted mb-4">Browse our adorable residents and find a furry companion who's been waiting just for you.</p>
+        <a href="#pets" class="btn btn-primary btn-lg">Meet Our Pets</a>
+      </div>
+    </section>
+
+    <!-- Available Pets -->
+    <section id="pets" class="pets-section" aria-labelledby="pets-heading">
+      <h2 id="pets-heading">Available for Adoption</h2>
+
+      <div class="row g-4" role="list">
+        <% pets.forEach(pet => { %>
+          <%- include('partials/card', { pet }) %>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about-section py-5 bg-body-tertiary" aria-labelledby="about-heading">
+      <div class="container" style="max-width: 720px;">
+        <h2 id="about-heading" class="text-center mb-3">About Paws &amp; Home</h2>
+        <p class="text-center text-muted mb-3">
+          Founded in 2018, Paws &amp; Home is a no-kill shelter dedicated to rescuing,
+          rehabilitating, and rehoming animals in need. Every animal in our care receives
+          veterinary attention, socialization, and lots of love while waiting for their
+          forever family.
+        </p>
+        <p class="text-center text-muted">
+          We've placed over <strong>2,500 pets</strong> in loving homes and counting.
+          Whether you're looking for a playful puppy or a mellow senior cat, we'll help
+          you find the perfect match.
+        </p>
+      </div>
+    </section>
+
+    <!-- How It Works (ordered list) -->
+    <section id="how-it-works" class="process-section py-5 bg-body-tertiary" aria-labelledby="process-heading">
+      <div class="container" style="max-width: 620px;">
+        <h2 id="process-heading" class="text-center mb-2">How It Works</h2>
+        <p class="section-subtitle text-center text-muted mb-4">Bringing a new friend home is simple — just follow these steps.</p>
+        <ol class="process-list list-unstyled">
+          <li class="d-flex align-items-baseline gap-3 mb-3">
+            <span class="process-number flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold">1</span>
+            <span>Browse our available pets and find one that catches your eye</span>
+          </li>
+          <li class="d-flex align-items-baseline gap-3 mb-3">
+            <span class="process-number flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold">2</span>
+            <span>Click <strong>"Adopt Me"</strong> to start your application</span>
+          </li>
+          <li class="d-flex align-items-baseline gap-3 mb-3">
+            <span class="process-number flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold">3</span>
+            <span>Fill out the adoption form with your details and preferences</span>
+          </li>
+          <li class="d-flex align-items-baseline gap-3 mb-3">
+            <span class="process-number flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold">4</span>
+            <span>Our team reviews your application and reaches out within 48 hours</span>
+          </li>
+          <li class="d-flex align-items-baseline gap-3 mb-3">
+            <span class="process-number flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold">5</span>
+            <span>Visit the shelter to meet your match in person</span>
+          </li>
+          <li class="d-flex align-items-baseline gap-3 mb-3">
+            <span class="process-number flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold">6</span>
+            <span>Complete the adoption paperwork and take your new friend home!</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Adoption Fees (table) -->
+    <section id="fees" class="fees-section py-5" aria-labelledby="fees-heading">
+      <div class="container" style="max-width: 620px;">
+        <h2 id="fees-heading" class="text-center mb-2">Adoption Fees</h2>
+        <p class="section-subtitle text-center text-muted mb-4">All fees include essential veterinary care so your new companion is ready to go.</p>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <caption class="visually-hidden">Adoption fees by pet type</caption>
+            <thead class="table-primary">
+              <tr>
+                <th scope="col">Pet Type</th>
+                <th scope="col">Fee</th>
+                <th scope="col">Includes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dog</td>
+                <td>$150</td>
+                <td>Vaccines, microchip, spay/neuter</td>
+              </tr>
+              <tr>
+                <td>Cat</td>
+                <td>$100</td>
+                <td>Vaccines, microchip, spay/neuter</td>
+              </tr>
+              <tr>
+                <td>Rabbit</td>
+                <td>$50</td>
+                <td>Health check, microchip</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+<%- include('partials/footer') %>
