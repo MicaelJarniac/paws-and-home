@@ -5,13 +5,41 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+function calculateAgeInYears(birthday) {
+  const birthDate = new Date(birthday);
+  if (Number.isNaN(birthDate.getTime())) return null;
+
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  const hasHadBirthdayThisYear =
+    today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() &&
+      today.getDate() >= birthDate.getDate());
+
+  if (!hasHadBirthdayThisYear) age -= 1;
+
+  return Math.max(age, 0);
+}
+
+function enrichPet(pet) {
+  const age = calculateAgeInYears(pet.birthday);
+
+  return {
+    ...pet,
+    age,
+    ageLabel: age === null ? 'Age unknown' : `${age} ${age === 1 ? 'year' : 'years'} old`,
+  };
+}
+
 // Pet data
 const pets = [
   {
     name: 'Buddy',
     type: 'dog',
-    breed: 'Dog · Shepherd Mix',
-    age: 2,
+    species: 'Dog',
+    breed: 'Shepherd Mix',
+    birthday: '2023-05-10',
     description: 'Bright, alert, and full of outdoor energy. Buddy loves long walks, playtime, and staying close to his people.',
     image: '/img/buddy.jpg',
     alt: 'Buddy, a red-and-white shepherd mix on sandy ground looking at the camera',
@@ -20,8 +48,9 @@ const pets = [
   {
     name: 'Luna',
     type: 'cat',
-    breed: 'Cat · Brown Tabby',
-    age: 2,
+    species: 'Cat',
+    breed: 'Brown Tabby',
+    birthday: '2023-08-22',
     description: 'Curious and confident, Luna loves to observe everything around her and is always ready for her next little adventure.',
     image: '/img/luna.jpg',
     alt: 'Luna, a tabby cat with green eyes looking alert outdoors',
@@ -30,8 +59,9 @@ const pets = [
   {
     name: 'Max',
     type: 'dog',
-    breed: 'Dog · Terrier Mix',
-    age: 1,
+    species: 'Dog',
+    breed: 'Terrier Mix',
+    birthday: '2024-11-03',
     description: 'Smart, watchful, and affectionate once he warms up. Max is a small companion with a big personality.',
     image: '/img/max.jpg',
     alt: 'Max, a small black-and-tan terrier mix with upright ears',
@@ -40,8 +70,9 @@ const pets = [
   {
     name: 'Milo',
     type: 'cat',
-    breed: 'Cat · Domestic Longhair',
-    age: 4,
+    species: 'Cat',
+    breed: 'Domestic Longhair',
+    birthday: '2021-03-14',
     description: 'Calm, regal, and very photogenic. Milo enjoys cozy indoor spots and a relaxed daily routine.',
     image: '/img/milo.jpg',
     alt: 'Milo, a fluffy orange long-haired cat resting indoors',
@@ -50,8 +81,9 @@ const pets = [
   {
     name: 'Daisy',
     type: 'dog',
-    breed: 'Dog · Small Poodle Mix',
-    age: 3,
+    species: 'Dog',
+    breed: 'Small Poodle Mix',
+    birthday: '2022-09-01',
     description: 'Playful and joyful, Daisy loves running in open spaces and bringing happy energy wherever she goes.',
     image: '/img/daisy.jpg',
     alt: 'Daisy, a small fluffy white dog running joyfully across a grassy field',
@@ -60,8 +92,9 @@ const pets = [
   {
     name: 'Cinnamon',
     type: 'rabbit',
-    breed: 'Rabbit · Dwarf Mix',
-    age: 1,
+    species: 'Rabbit',
+    breed: 'Dwarf Mix',
+    birthday: '2024-04-20',
     description: 'Soft, gentle, and curious. Cinnamon is a sweet little rabbit who enjoys calm spaces and gentle handling.',
     image: '/img/cinnamon.jpg',
     alt: 'Cinnamon, a small white rabbit with upright ears on a white background',
@@ -78,7 +111,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-    res.render('home', { pets });
+    res.render('home', { pets: pets.map(enrichPet) });
 });
 
 app.get('/adopt', (req, res) => {

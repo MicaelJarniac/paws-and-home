@@ -9,7 +9,7 @@
     >
     <div class="pet-card-body card-body d-flex flex-column">
       <h3 class="card-title"><%= pet.name %></h3>
-      <p class="pet-meta card-text"><%= pet.breed %> · <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %> old</p>
+      <p class="pet-meta card-text"><%= pet.species %> · <%= pet.breed %> · <%= pet.ageLabel %></p>
       <p class="card-text"><%= pet.description %></p>
       <div class="mt-auto">
         <% if (pet.status === 'available') { %>
