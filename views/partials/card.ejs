@@ -1,0 +1,25 @@
+<!-- Pet Card -->
+<article class="col-sm-6 col-lg-4" role="listitem">
+  <div class="pet-card card h-100">
+    <img
+      src="<%= pet.image %>"
+      class="card-img-top"
+      alt="<%= pet.alt %>"
+      loading="lazy"
+    >
+    <div class="pet-card-body card-body d-flex flex-column">
+      <h3 class="card-title"><%= pet.name %></h3>
+      <p class="pet-meta card-text"><%= pet.breed %> · <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %> old</p>
+      <p class="card-text"><%= pet.description %></p>
+      <div class="mt-auto">
+        <% if (pet.status === 'available') { %>
+          <span class="badge bg-success-subtle text-success-emphasis rounded-pill mb-2">Available</span>
+          <a href="/adopt?pet=<%= pet.name %>&type=<%= pet.type %>" class="btn btn-adopt">Adopt Me</a>
+        <% } else { %>
+          <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill mb-2">Adoption Pending</span>
+          <button class="btn btn-adopt btn-disabled" disabled aria-disabled="true">Adoption Pending</button>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</article>
