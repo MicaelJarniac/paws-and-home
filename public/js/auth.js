@@ -18,7 +18,7 @@
   if (loginForm) {
     // If already logged in, skip straight to home
     if (isLoggedIn()) {
-      window.location.replace("home.html");
+      window.location.replace("/home");
       return;
     }
 
@@ -61,7 +61,7 @@
         passwordInput.value === VALID_PASS
       ) {
         sessionStorage.setItem(SESSION_KEY, "true");
-        window.location.replace("home.html");
+        window.location.replace("/home");
       } else {
         feedback.textContent = "Invalid username or password. Please try again.";
         feedback.className = "alert alert-danger";
@@ -75,7 +75,7 @@
 
   // === Protected page logic ===
   if (!isLoggedIn()) {
-    window.location.replace("index.html");
+    window.location.replace("/");
     return;
   }
 
@@ -85,7 +85,7 @@
     logoutLink.addEventListener("click", function (e) {
       e.preventDefault();
       sessionStorage.removeItem(SESSION_KEY);
-      window.location.replace("index.html");
+      window.location.replace("/");
     });
   }
 })();
