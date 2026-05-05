@@ -85,7 +85,8 @@
   color: var(--color-primary);
 }
 
-.navbar-nav .nav-link[aria-current="page"] {
+.navbar-nav .nav-link[aria-current="page"],
+.navbar-nav .nav-link.active {
   color: var(--color-primary);
 }
 
