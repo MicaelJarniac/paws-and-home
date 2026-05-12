@@ -1,0 +1,71 @@
+<%- include('../../partials/header', {
+  title: 'Manage Pets — Paws & Home Admin',
+  description: 'Manage pet listings in the Paws & Home admin panel.',
+  currentPage: 'admin-pets'
+}) %>
+<%- include('../../partials/admin-nav') %>
+
+<main id="main-content">
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Pets</h1>
+        <a href="/admin/pets/new" class="btn btn-primary">+ New Pet</a>
+      </div>
+
+      <%- include('../../partials/flash') %>
+
+      <% if (pets.length === 0) { %>
+        <p class="text-muted">No pets registered yet.</p>
+      <% } else { %>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-primary">
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Breed</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% pets.forEach(pet => { %>
+                <tr>
+                  <td>
+                    <% if (pet.image) { %>
+                      <img src="<%= pet.image %>" alt="<%= pet.alt || pet.name %>" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px;">
+                    <% } else { %>
+                      <span class="text-muted">—</span>
+                    <% } %>
+                  </td>
+                  <td><strong><%= pet.name %></strong></td>
+                  <td><%= pet.species %></td>
+                  <td><%= pet.breed %></td>
+                  <td>
+                    <% if (pet.status === 'available') { %>
+                      <span class="badge bg-success-subtle text-success-emphasis rounded-pill">Available</span>
+                    <% } else if (pet.status === 'pending') { %>
+                      <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill">Pending</span>
+                    <% } else { %>
+                      <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill"><%= pet.status %></span>
+                    <% } %>
+                  </td>
+                  <td class="text-end">
+                    <a href="/admin/pets/<%= pet.id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <form action="/admin/pets/<%= pet.id %>/delete" method="post" class="d-inline" onsubmit="return confirm('Delete <%= pet.name %>?')">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

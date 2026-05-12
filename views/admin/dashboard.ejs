@@ -1,0 +1,39 @@
+<%- include('../partials/header', {
+  title: 'Dashboard — Paws & Home Admin',
+  description: 'Admin dashboard for Paws & Home pet adoption shelter.',
+  currentPage: 'admin-dashboard'
+}) %>
+<%- include('../partials/admin-nav') %>
+
+<main id="main-content">
+  <section class="py-5">
+    <div class="container" style="max-width: 720px;">
+      <h1 class="mb-4">Dashboard</h1>
+
+      <%- include('../partials/flash') %>
+
+      <div class="row g-4">
+        <div class="col-sm-6">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <h2 class="h5 card-title">Manage Pets</h2>
+              <p class="card-text text-muted">Add, edit, or remove pets from the adoption catalog.</p>
+              <a href="/admin/pets" class="btn btn-primary">Go to Pets</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <h2 class="h5 card-title">Manage Admins</h2>
+              <p class="card-text text-muted">Add, edit, or remove admin accounts.</p>
+              <a href="/admin/admins" class="btn btn-primary">Go to Admins</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

@@ -17,13 +17,24 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "migrate": "node migrations/migrate.js",
+    "migrate:down": "node migrations/migrate.js down",
+    "seed": "node seeds/seed.js",
+    "setup": "node migrations/migrate.js && node seeds/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "bootstrap": "^5.3.8",
     "ejs": "^5.0.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.1.1",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "sequelize-cli": "^6.6.5"
   }
 }
