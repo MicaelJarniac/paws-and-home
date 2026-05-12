@@ -1,0 +1,91 @@
+<%- include('../../partials/header', {
+  title: (isEdit ? 'Edit Pet' : 'New Pet') + ' — Paws & Home Admin',
+  description: isEdit ? 'Edit pet details.' : 'Register a new pet.',
+  currentPage: 'admin-pets'
+}) %>
+<%- include('../../partials/admin-nav') %>
+
+<main id="main-content">
+  <section class="py-5">
+    <div class="container" style="max-width: 620px;">
+      <h1 class="mb-4"><%= isEdit ? 'Edit Pet' : 'New Pet' %></h1>
+
+      <%- include('../../partials/flash') %>
+
+      <form
+        action="<%= isEdit ? '/admin/pets/' + pet.id : '/admin/pets' %>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+          <input type="text" id="name" name="name" class="form-control" required value="<%= isEdit ? pet.name : '' %>">
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-sm-6">
+            <label for="type" class="form-label">Type <span class="text-danger">*</span></label>
+            <select id="type" name="type" class="form-select" required>
+              <option value="">— Select —</option>
+              <option value="dog" <%= isEdit && pet.type === 'dog' ? 'selected' : '' %>>Dog</option>
+              <option value="cat" <%= isEdit && pet.type === 'cat' ? 'selected' : '' %>>Cat</option>
+              <option value="rabbit" <%= isEdit && pet.type === 'rabbit' ? 'selected' : '' %>>Rabbit</option>
+            </select>
+          </div>
+          <div class="col-sm-6">
+            <label for="species" class="form-label">Species <span class="text-danger">*</span></label>
+            <input type="text" id="species" name="species" class="form-control" required value="<%= isEdit ? pet.species : '' %>" placeholder="e.g. Dog, Cat, Rabbit">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-sm-6">
+            <label for="breed" class="form-label">Breed <span class="text-danger">*</span></label>
+            <input type="text" id="breed" name="breed" class="form-control" required value="<%= isEdit ? pet.breed : '' %>">
+          </div>
+          <div class="col-sm-6">
+            <label for="birthday" class="form-label">Birthday</label>
+            <input type="date" id="birthday" name="birthday" class="form-control" value="<%= isEdit && pet.birthday ? pet.birthday : '' %>">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" name="description" class="form-control" rows="3"><%= isEdit ? pet.description || '' : '' %></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <input type="file" id="image" name="image" class="form-control" accept="image/*">
+          <% if (isEdit && pet.image) { %>
+            <div class="mt-2">
+              <img src="<%= pet.image %>" alt="Current image" style="max-width: 120px; border-radius: 8px;">
+              <small class="d-block text-muted mt-1">Current: <%= pet.image %></small>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="mb-3">
+          <label for="alt" class="form-label">Image Alt Text</label>
+          <input type="text" id="alt" name="alt" class="form-control" value="<%= isEdit ? pet.alt || '' : '' %>" placeholder="Describe the image for accessibility">
+        </div>
+
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <select id="status" name="status" class="form-select">
+            <option value="available" <%= isEdit && pet.status === 'available' ? 'selected' : '' %>>Available</option>
+            <option value="pending" <%= isEdit && pet.status === 'pending' ? 'selected' : '' %>>Pending</option>
+            <option value="adopted" <%= isEdit && pet.status === 'adopted' ? 'selected' : '' %>>Adopted</option>
+          </select>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary"><%= isEdit ? 'Update Pet' : 'Create Pet' %></button>
+          <a href="/admin/pets" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

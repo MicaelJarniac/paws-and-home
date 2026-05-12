@@ -1,0 +1,47 @@
+<%- include('../../partials/header', {
+  title: (isEdit ? 'Edit Admin' : 'New Admin') + ' — Paws & Home Admin',
+  description: isEdit ? 'Edit admin account.' : 'Create a new admin account.',
+  currentPage: 'admin-admins'
+}) %>
+<%- include('../../partials/admin-nav') %>
+
+<main id="main-content">
+  <section class="py-5">
+    <div class="container" style="max-width: 520px;">
+      <h1 class="mb-4"><%= isEdit ? 'Edit Admin' : 'New Admin' %></h1>
+
+      <%- include('../../partials/flash') %>
+
+      <form action="<%= isEdit ? '/admin/admins/' + admin.id : '/admin/admins' %>" method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+          <input type="text" id="username" name="username" class="form-control" required value="<%= isEdit ? admin.username : '' %>">
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+          <input type="email" id="email" name="email" class="form-control" required value="<%= isEdit ? admin.email : '' %>">
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">
+            Password
+            <% if (isEdit) { %>
+              <small class="text-muted">(leave blank to keep current)</small>
+            <% } else { %>
+              <span class="text-danger">*</span>
+            <% } %>
+          </label>
+          <input type="password" id="password" name="password" class="form-control" <%= isEdit ? '' : 'required' %>>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary"><%= isEdit ? 'Update Admin' : 'Create Admin' %></button>
+          <a href="/admin/admins" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

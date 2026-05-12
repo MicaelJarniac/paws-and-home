@@ -1,0 +1,55 @@
+<%- include('../partials/header', {
+  title: 'Admin Log In — Paws & Home',
+  description: 'Log in to the Paws & Home admin panel.',
+  currentPage: 'admin-login'
+}) %>
+  <main id="main-content" class="login-wrapper">
+    <div class="login-card card shadow">
+      <div class="card-body p-4 p-md-5">
+        <h1 class="login-logo" aria-label="Paws and Home Admin">🐾 Paws <span>&amp;</span> Home</h1>
+        <p class="login-subtitle">Admin Panel</p>
+
+        <%- include('../partials/flash') %>
+
+        <form action="/admin/login" method="post" aria-label="Admin login form" novalidate>
+          <fieldset>
+            <legend class="visually-hidden">Enter your admin credentials</legend>
+
+            <div class="form-group mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                autocomplete="username"
+                required
+                aria-required="true"
+              >
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                autocomplete="current-password"
+                required
+                aria-required="true"
+              >
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Log In</button>
+          </fieldset>
+        </form>
+
+        <p class="text-center mt-3">
+          <a href="/" class="text-muted">&larr; Back to site</a>
+        </p>
+      </div>
+    </div>
+  </main>
+  <%- include('../partials/theme') %>
+<%- include('../partials/footer') %>
