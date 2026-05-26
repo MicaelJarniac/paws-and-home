@@ -6,6 +6,7 @@
 // in ES module scope". See README "Why some files are .cjs" for details.
 // Tracking native ESM support: https://github.com/sequelize/cli/issues/1436
 
+// CJS imports — required by the file's CommonJS contract (see header above).
 const bcrypt = require('bcryptjs');
 const { randomUUID } = require('node:crypto');
 
