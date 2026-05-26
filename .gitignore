@@ -1,2 +1,10 @@
 node_modules
 database.sqlite
+
+# Compiled TypeScript output
+dist/
+public/js/*.js
+public/js/*.map
+
+# Internal planning/scratchpad
+.sisyphus/

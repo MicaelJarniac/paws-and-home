@@ -1,0 +1,14 @@
+// MUST use CommonJS syntax — sequelize-cli loads this file via its own
+// require()-based loader. ESM imports here would crash the CLI regardless
+// of file extension. See README "Why some files are .cjs" for details.
+// Tracking native ESM support: https://github.com/sequelize/cli/issues/1436
+
+// CJS import — required by the file's CommonJS contract (see header above).
+const path = require('path');
+
+module.exports = {
+  config: path.resolve('config', 'config.cjs'),
+  'migrations-path': path.resolve('migrations'),
+  'seeders-path': path.resolve('seeders'),
+  'models-path': path.resolve('dist', 'models'),
+};
