@@ -18,7 +18,7 @@
     "moduleResolution": "node",
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "outDir": "./public/js",
-    "rootDir": "./src/client",
+    "rootDir": "./src",
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
@@ -29,6 +29,6 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/client/**/*"],
+  "include": ["src/client/**/*", "src/shared/**/*"],
   "exclude": ["node_modules"]
 }
