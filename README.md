@@ -153,6 +153,30 @@ Then open `http://localhost:3000`.
 | `npm run seed:images` | Copy `seeds/img/*` to `public/img/pets/` |
 | `npm run setup` | Full chain: build + migrate + seed:images + seed |
 
+## Known security advisories
+
+`npm audit` reports a single residual moderate-severity advisory that cannot be resolved without breaking the application:
+
+| Advisory | Affected | Path |
+|---|---|---|
+| [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq) — `uuid` missing buffer bounds check in v3/v5/v6 when `buf` is provided | `uuid <11.1.1` | `sequelize@6.37.8` → `uuid@8.3.2` |
+
+The same advisory surfaces twice in `npm audit` output: once on `uuid` directly and once on `sequelize` (as the consumer pinning it).
+
+**Why this is not exploitable in this codebase:**
+
+- The advisory only affects `uuid.v3()`, `v5()`, and `v6()` **when called with a `buf` argument**. This codebase never reaches that path:
+  - Model primary keys use `DataTypes.UUIDV4` — Sequelize's internal v4 call, no `buf` parameter.
+  - Seeders generate IDs with `crypto.randomUUID()` from Node's standard library, which does not use the `uuid` package at all.
+- No user input or HTTP request can reach a `uuid.v3/v5/v6(name, namespace, buf)` call site.
+
+**Why we have not "fixed" it:**
+
+- `npm audit fix --force` would resolve the chain by downgrading `sequelize` to **v3.30.0** — a 2014-era major version. That would break the application entirely (Sequelize v3 predates the v6 API surface this project uses everywhere).
+- The real fix is upstream: either Sequelize 6.x bumps its `uuid` dependency, or this project migrates to Sequelize 7 (currently in beta) which uses a newer `uuid`.
+
+The four other advisories present on initial `npm install` (`js-cookie` HIGH, `qs`, `brace-expansion`, and an indirect `sequelize` flag) were all dev-only transitive chains and were resolved by `npm audit fix`. They no longer appear in the audit output.
+
 ## Author
 
 **Micael Jarniac** — [GitHub](https://github.com/MicaelJarniac)
