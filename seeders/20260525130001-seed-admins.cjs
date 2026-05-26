@@ -13,6 +13,13 @@ const { randomUUID } = require('node:crypto');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
+    const [rows] = await queryInterface.sequelize.query(
+      "SELECT 1 FROM Admins WHERE username = 'admin' LIMIT 1",
+    );
+    if (rows.length > 0) {
+      return;
+    }
+
     const passwordHash = await bcrypt.hash('admin123', 10);
     const now = new Date();
     await queryInterface.bulkInsert('Admins', [

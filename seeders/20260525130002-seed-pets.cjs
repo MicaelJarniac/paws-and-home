@@ -87,6 +87,13 @@ const PETS = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
+    const [rows] = await queryInterface.sequelize.query(
+      'SELECT 1 FROM Pets LIMIT 1',
+    );
+    if (rows.length > 0) {
+      return;
+    }
+
     const now = new Date();
     await queryInterface.bulkInsert(
       'Pets',
