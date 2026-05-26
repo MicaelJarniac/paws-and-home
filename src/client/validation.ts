@@ -25,7 +25,7 @@
 
   // CPF check-digit algorithm (Brazilian tax ID): two check digits computed from
   // weighted sums of the first 9 digits. Required by the project spec.
-  function validateCPF(cpf: string): boolean {
+  const validateCPF = (cpf: string): boolean => {
     cpf = cpf.replace(/\./g, '');
     const parts = cpf.split('-');
 
@@ -55,7 +55,7 @@
       expected1 === parseInt(checkDigits[0]!, 10) &&
       expected2 === parseInt(checkDigits[1]!, 10)
     );
-  }
+  };
 
   const cpfInput = document.getElementById('cpf') as HTMLInputElement | null;
   if (cpfInput) {
@@ -136,7 +136,7 @@
     },
   };
 
-  function validateField(id: string): boolean {
+  const validateField = (id: string): boolean => {
     const rule = rules[id];
     if (!rule) return true;
 
@@ -169,7 +169,7 @@
     }
 
     return valid;
-  }
+  };
 
   Object.keys(rules).forEach((id) => {
     const input = document.getElementById(id);

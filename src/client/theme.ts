@@ -6,7 +6,7 @@
 
   type Theme = 'light' | 'dark';
 
-  function setTheme(theme: Theme): void {
+  const setTheme = (theme: Theme): void => {
     root.setAttribute(BS_THEME_ATTR, theme);
     localStorage.setItem(STORAGE_KEY, theme);
     if (btn) {
@@ -16,7 +16,7 @@
         theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode',
       );
     }
-  }
+  };
 
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved === 'dark' || saved === 'light') {
