@@ -1,14 +1,20 @@
 {
-  // Browser-side TypeScript. Files in src/client/ are IIFE scripts loaded
-  // by classic <script src="..."> tags from views/partials/footer.ejs —
-  // NOT <script type="module">. Two flags from the backend tsconfig are
-  // intentionally omitted here:
-  //   - "moduleDetection": "force" would emit `export {};` into every
+  // Browser-side TypeScript. Client files load via two different mechanisms
+  // depending on whether they have top-level import/export statements:
+  //   - theme.ts is a pure IIFE (no imports) — loaded by views/partials/
+  //     footer.ejs as a classic <script src="/js/client/theme.js">.
+  //   - validation.ts imports from src/shared/ — loaded by views/adopt.ejs
+  //     as <script type="module" src="/js/client/validation.js">, with
+  //     bare specifiers (e.g. "zod") resolved via the <script type=
+  //     "importmap"> declared in views/partials/header.ejs.
+  // Two flags from the backend tsconfig are intentionally omitted so TS
+  // can auto-detect module-shape per file:
+  //   - "moduleDetection": "force" would emit `export {};` into EVERY
   //     compiled file (to make it a module). Classic scripts cannot
   //     contain `export` syntax — the browser throws a syntax error and
-  //     the IIFE never runs (breaks dark-mode toggle, form validation).
+  //     the IIFE never runs (would break the dark-mode toggle).
   //   - "isolatedModules" requires every file to be a module (have at
-  //     least one import/export). Same incompatibility.
+  //     least one import/export). Incompatible with theme.ts.
   // All the type-checking strict flags (strict, noUncheckedIndexedAccess,
   // exactOptionalPropertyTypes, noImplicitOverride, verbatimModuleSyntax)
   // are retained and still apply.
