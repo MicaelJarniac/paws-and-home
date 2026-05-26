@@ -1,5 +1,6 @@
 import type { RequestHandler } from 'express';
 import { Admin } from '../models/index.js';
+import { loginInputSchema } from '../shared/authSchema.js';
 
 export const loginPage: RequestHandler = (req, res) => {
   if (req.session.adminId) {
@@ -10,15 +11,18 @@ export const loginPage: RequestHandler = (req, res) => {
 };
 
 export const loginSubmit: RequestHandler = async (req, res) => {
-  const { username, password } = (req.body ?? {}) as { username?: string; password?: string };
+  const parsed = loginInputSchema.safeParse(req.body ?? {});
 
-  if (!username || !password) {
-    req.session.flash = { type: 'danger', message: 'Please enter both username and password.' };
+  if (!parsed.success) {
+    const firstMessage =
+      parsed.error.issues[0]?.message ?? 'Please enter both username and password.';
+    req.session.flash = { type: 'danger', message: firstMessage };
     res.redirect('/admin/login');
     return;
   }
 
-  const admin = await Admin.findOne({ where: { username: username.trim() } });
+  const { username, password } = parsed.data;
+  const admin = await Admin.findOne({ where: { username } });
 
   if (!admin || !(await admin.checkPassword(password))) {
     req.session.flash = { type: 'danger', message: 'Invalid username or password.' };
