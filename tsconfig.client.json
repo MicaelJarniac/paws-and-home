@@ -1,4 +1,17 @@
 {
+  // Browser-side TypeScript. Files in src/client/ are IIFE scripts loaded
+  // by classic <script src="..."> tags from views/partials/footer.ejs —
+  // NOT <script type="module">. Two flags from the backend tsconfig are
+  // intentionally omitted here:
+  //   - "moduleDetection": "force" would emit `export {};` into every
+  //     compiled file (to make it a module). Classic scripts cannot
+  //     contain `export` syntax — the browser throws a syntax error and
+  //     the IIFE never runs (breaks dark-mode toggle, form validation).
+  //   - "isolatedModules" requires every file to be a module (have at
+  //     least one import/export). Same incompatibility.
+  // All the type-checking strict flags (strict, noUncheckedIndexedAccess,
+  // exactOptionalPropertyTypes, noImplicitOverride, verbatimModuleSyntax)
+  // are retained and still apply.
   "compilerOptions": {
     "target": "ES2020",
     "module": "ES2020",
@@ -11,8 +24,6 @@
     "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
     "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "sourceMap": true,
