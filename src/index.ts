@@ -11,6 +11,17 @@ import adminRoutes from './routes/admin.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, '..');
 const PORT = Number(process.env.PORT ?? 3000);
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
+// Fail loudly in production if SESSION_SECRET is not provided. Falling back
+// to a hardcoded development secret in production would let anyone forge a
+// signed session cookie and impersonate any admin.
+const sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret && IS_PRODUCTION) {
+  throw new Error(
+    'SESSION_SECRET environment variable is required when NODE_ENV=production',
+  );
+}
 
 const app = express();
 
@@ -26,10 +37,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET ?? 'paws-and-home-secret-key',
+    secret: sessionSecret ?? 'paws-and-home-dev-secret',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 4 },
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 4,
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: IS_PRODUCTION,
+    },
   }),
 );
 

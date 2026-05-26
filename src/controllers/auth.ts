@@ -26,6 +26,16 @@ export const loginSubmit: RequestHandler = async (req, res) => {
     return;
   }
 
+  // Regenerate the session ID on successful auth to mitigate session fixation
+  // attacks (an attacker who knew the pre-login session ID would otherwise
+  // inherit the post-login authenticated session).
+  await new Promise<void>((resolve, reject) => {
+    req.session.regenerate((err) => {
+      if (err) reject(err);
+      else resolve();
+    });
+  });
+
   req.session.adminId = admin.id;
   req.session.adminUsername = admin.username;
   req.session.flash = { type: 'success', message: `Welcome back, ${admin.username}!` };

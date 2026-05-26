@@ -13,7 +13,14 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, _next) => {
     typeof (err as { status?: unknown }).status === 'number'
       ? (err as { status: number }).status
       : 500;
-  const message = err instanceof Error ? err.message : 'Unknown error';
+  const rawMessage = err instanceof Error ? err.message : 'Unknown error';
+  // For 5xx in production, hide the underlying error from the client — it
+  // can leak internals (file paths, query fragments, library traces). 4xx
+  // messages are intentional user-facing errors and stay verbatim. Full
+  // detail is always preserved in the server log above.
+  const isServerError = status >= 500;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const message = isServerError && isProduction ? 'Internal server error' : rawMessage;
   res.status(status);
   if (req.accepts('html')) {
     res.render('error', { status, message });
