@@ -1,5 +1,11 @@
 'use strict';
 
+// MUST stay .cjs — sequelize-cli v6 loads each seeder via require()
+// (CJS only). Because package.json declares "type": "module", a .js
+// extension would force ESM parsing and break with "module is not defined
+// in ES module scope". See README "Why some files are .cjs" for details.
+// Tracking native ESM support: https://github.com/sequelize/cli/issues/1436
+
 const bcrypt = require('bcryptjs');
 const { randomUUID } = require('node:crypto');
 

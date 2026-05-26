@@ -76,6 +76,30 @@ paws-and-home/
 └── README.md
 ```
 
+## Why some files are `.cjs`
+
+The project is fully ESM (`"type": "module"` in `package.json`), but the following files **must** use the `.cjs` extension (or, for `.sequelizerc`, CommonJS syntax):
+
+| File | Why |
+|---|---|
+| `.sequelizerc` | sequelize-cli loads it through its own `require()`-based loader |
+| `config/config.cjs` | sequelize-cli reads it via `require()`; also read at runtime by `src/config/database.ts` through `createRequire()` (single source of truth) |
+| `migrations/*.cjs` | sequelize-cli loads each migration via `require()` |
+| `seeders/*.cjs` | sequelize-cli loads each seeder via `require()` |
+
+**Do not rename these to `.js`.** Because `package.json` declares `"type": "module"`, Node treats `.js` files as ES modules, and `require()` cannot load ESM. The exact failure mode is:
+
+```
+ERROR: module is not defined in ES module scope
+This file is being treated as an ES module because it has a '.js' file
+extension and '/path/to/project/package.json' contains "type": "module".
+To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+```
+
+**Why not just convert sequelize-cli to ESM?** `sequelize-cli` v6 was written long before ESM was practical in Node, and its CLI internals call `require()` directly to load migrations, seeders, and configs. There is an open PR — [sequelize/cli#1436](https://github.com/sequelize/cli/issues/1436) — to add `--esm` support, but it has been unmerged since 2023. Until that ships (or until this project migrates to Sequelize v7's separate `@sequelize/cli`, or replaces sequelize-cli with [Umzug](https://github.com/sequelize/umzug)), these files stay CJS.
+
+Each `.cjs` file has a header comment restating this constraint so the rule is local to the file that enforces it.
+
 ## Routes
 
 | Route | View | Auth |
