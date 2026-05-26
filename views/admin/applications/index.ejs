@@ -1,0 +1,77 @@
+<%- include('../../partials/header', {
+  title: 'Adoption Applications — Paws & Home Admin',
+  description: 'Review adoption applications submitted through the Paws & Home website.',
+  currentPage: 'admin-applications'
+}) %>
+<%- include('../../partials/admin-nav') %>
+
+<main id="main-content">
+  <section class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Adoption Applications</h1>
+        <span class="text-muted"><%= applications.length %> total</span>
+      </div>
+
+      <%- include('../../partials/flash') %>
+
+      <% if (applications.length === 0) { %>
+        <p class="text-muted">No adoption applications yet. They'll appear here once visitors submit the form on the public site.</p>
+      <% } else { %>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-primary">
+              <tr>
+                <th>Applicant</th>
+                <th>Contact</th>
+                <th>Pet preference</th>
+                <th>Status</th>
+                <th>Submitted</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% applications.forEach(application => {
+                const statusClass = {
+                  pending: 'bg-secondary',
+                  reviewing: 'bg-info text-dark',
+                  approved: 'bg-success',
+                  rejected: 'bg-danger',
+                }[application.status] || 'bg-secondary';
+              %>
+                <tr>
+                  <td>
+                    <strong><%= application.fullName %></strong>
+                    <div class="small text-muted">CPF: <%= application.cpf %></div>
+                  </td>
+                  <td>
+                    <div><%= application.email %></div>
+                    <div class="small text-muted"><%= application.phone %></div>
+                  </td>
+                  <td>
+                    <span class="text-capitalize"><%= application.petType %></span>
+                    <% if (application.petName) { %>
+                      <div class="small text-muted">"<%= application.petName %>"</div>
+                    <% } %>
+                  </td>
+                  <td>
+                    <span class="badge <%= statusClass %> text-capitalize"><%= application.status %></span>
+                  </td>
+                  <td><%= new Date(application.createdAt).toLocaleDateString('en-US') %></td>
+                  <td class="text-end">
+                    <a href="/admin/applications/<%= application.id %>" class="btn btn-sm btn-outline-primary">View</a>
+                    <form action="/admin/applications/<%= application.id %>/delete" method="post" class="d-inline" onsubmit="return confirm('Delete application from <%= application.fullName %>?')">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>

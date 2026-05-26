@@ -23,6 +23,12 @@ import {
   updateAdmin,
   deleteAdmin,
 } from '../controllers/admin.js';
+import {
+  listApplications,
+  showApplication,
+  updateApplicationStatus,
+  deleteApplication,
+} from '../controllers/adminApplication.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOAD_DIR = path.join(__dirname, '..', '..', 'public', 'img', 'pets');
@@ -81,5 +87,10 @@ router.post('/admins', asyncHandler(createAdmin));
 router.get('/admins/:id/edit', asyncHandler(editAdminForm));
 router.post('/admins/:id', asyncHandler(updateAdmin));
 router.post('/admins/:id/delete', asyncHandler(deleteAdmin));
+
+router.get('/applications', asyncHandler(listApplications));
+router.get('/applications/:id', asyncHandler(showApplication));
+router.post('/applications/:id/status', asyncHandler(updateApplicationStatus));
+router.post('/applications/:id/delete', asyncHandler(deleteApplication));
 
 export default router;

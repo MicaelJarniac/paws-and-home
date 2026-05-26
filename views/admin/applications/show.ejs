@@ -1,0 +1,123 @@
+<%- include('../../partials/header', {
+  title: 'Application from ' + application.fullName + ' — Paws & Home Admin',
+  description: 'Adoption application details.',
+  currentPage: 'admin-applications'
+}) %>
+<%- include('../../partials/admin-nav') %>
+
+<%
+  const statusClass = {
+    pending: 'bg-secondary',
+    reviewing: 'bg-info text-dark',
+    approved: 'bg-success',
+    rejected: 'bg-danger',
+  }[application.status] || 'bg-secondary';
+
+  const homeTypeLabels = {
+    'house-yard': 'House with yard',
+    'house-no-yard': 'House without yard',
+    'apartment': 'Apartment',
+    'farm': 'Farm / rural property',
+  };
+  const experienceLabels = {
+    'first-time': 'First-time pet owner',
+    'some': 'Some experience',
+    'experienced': 'Experienced pet owner',
+  };
+  const petTypeLabels = {
+    'dog': 'Dog',
+    'cat': 'Cat',
+    'rabbit': 'Rabbit',
+    'any': 'No preference',
+  };
+%>
+
+<main id="main-content">
+  <section class="py-5">
+    <div class="container" style="max-width: 720px;">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h1 class="mb-0">Application from <%= application.fullName %></h1>
+        <a href="/admin/applications" class="btn btn-sm btn-outline-secondary">← Back</a>
+      </div>
+      <p class="text-muted mb-4">
+        Submitted <%= new Date(application.createdAt).toLocaleString('en-US') %>
+        · <span class="badge <%= statusClass %> text-capitalize"><%= application.status %></span>
+      </p>
+
+      <%- include('../../partials/flash') %>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5 card-title mb-3">Personal Information</h2>
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Full Name</dt>
+            <dd class="col-sm-8"><%= application.fullName %></dd>
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8"><a href="mailto:<%= application.email %>"><%= application.email %></a></dd>
+            <dt class="col-sm-4">Phone</dt>
+            <dd class="col-sm-8"><%= application.phone %></dd>
+            <dt class="col-sm-4">CPF</dt>
+            <dd class="col-sm-8"><%= application.cpf %></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5 card-title mb-3">Pet Preferences</h2>
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Preferred Pet Type</dt>
+            <dd class="col-sm-8"><%= petTypeLabels[application.petType] || application.petType %></dd>
+            <dt class="col-sm-4">Specific Pet</dt>
+            <dd class="col-sm-8"><%= application.petName || '—' %></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5 card-title mb-3">Living Situation</h2>
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Home Type</dt>
+            <dd class="col-sm-8"><%= homeTypeLabels[application.homeType] || application.homeType %></dd>
+            <dt class="col-sm-4">Experience</dt>
+            <dd class="col-sm-8"><%= experienceLabels[application.experience] || application.experience %></dd>
+          </dl>
+        </div>
+      </div>
+
+      <% if (application.notes) { %>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h5 card-title mb-3">Additional Notes</h2>
+            <p class="mb-0" style="white-space: pre-wrap;"><%= application.notes %></p>
+          </div>
+        </div>
+      <% } %>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5 card-title mb-3">Update Status</h2>
+          <form action="/admin/applications/<%= application.id %>/status" method="post" class="d-flex gap-2 align-items-center">
+            <label for="status" class="form-label mb-0 visually-hidden">Status</label>
+            <select id="status" name="status" class="form-select" style="max-width: 220px;">
+              <option value="pending"<%= application.status === 'pending' ? ' selected' : '' %>>Pending</option>
+              <option value="reviewing"<%= application.status === 'reviewing' ? ' selected' : '' %>>Reviewing</option>
+              <option value="approved"<%= application.status === 'approved' ? ' selected' : '' %>>Approved</option>
+              <option value="rejected"<%= application.status === 'rejected' ? ' selected' : '' %>>Rejected</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="text-end">
+        <form action="/admin/applications/<%= application.id %>/delete" method="post" onsubmit="return confirm('Delete application from <%= application.fullName %>? This cannot be undone from the admin UI.')">
+          <button type="submit" class="btn btn-outline-danger">Delete Application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../../partials/footer') %>
