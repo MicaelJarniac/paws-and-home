@@ -7,6 +7,21 @@
   <title><%= title %></title>
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    // Inline + synchronous so the theme attribute is set before first paint
+    // and dark-mode users don't see a brief light-mode flash on every page
+    // load. theme.js (loaded at end of body) handles the click toggle and
+    // re-reads the same source of truth on initialization.
+    (() => {
+      try {
+        const saved = localStorage.getItem('paws-theme');
+        const theme = (saved === 'dark' || saved === 'light')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-bs-theme', theme);
+      } catch (e) { /* localStorage unavailable (private browsing) — keep default */ }
+    })();
+  </script>
 </head>
 <body class="page-<%= currentPage %>"<% if (currentPage === 'home') { %> data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="80" tabindex="0"<% } %>>
   <a class="skip-link" href="#main-content">Skip to main content</a>
