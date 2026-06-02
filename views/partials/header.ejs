@@ -22,6 +22,9 @@
       } catch (e) { /* localStorage unavailable (private browsing) — keep default */ }
     })();
   </script>
+  <script type="importmap">
+    { "imports": { "zod": "/vendor/zod/index.js" } }
+  </script>
 </head>
 <body class="page-<%= currentPage %>"<% if (currentPage === 'home') { %> data-bs-spy="scroll" data-bs-target="#nav-menu" data-bs-offset="80" tabindex="0"<% } %>>
   <a class="skip-link" href="#main-content">Skip to main content</a>

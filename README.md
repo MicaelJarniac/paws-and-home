@@ -115,7 +115,16 @@ Each `.cjs` file has a header comment restating this constraint so the rule is l
 | `/admin/pets[/...]` | `views/admin/pets/*.ejs` | authenticated |
 | `/admin/admins[/...]` | `views/admin/admins/*.ejs` | authenticated |
 
-Default seeded admin credentials: `admin` / `admin123` (change in production).
+### Default admin login
+
+After running the seeder (`npm run setup` or `npm run seed`), log in at [`/admin/login`](http://localhost:3000/admin/login) with:
+
+| Field | Value |
+|---|---|
+| **Username** | `admin` |
+| **Password** | `admin` |
+
+> ⚠️ **Change this immediately in any non-local environment.** The seeded credentials are intentionally trivial for grading/demo convenience. Use the **Admins** section of the admin panel to update the password (or create a new admin and delete this one) before deploying.
 
 ## Run Locally
 

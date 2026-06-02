@@ -32,6 +32,10 @@ app.use(
   '/vendor/bootstrap',
   express.static(path.join(PROJECT_ROOT, 'node_modules', 'bootstrap', 'dist')),
 );
+app.use(
+  '/vendor/zod',
+  express.static(path.join(PROJECT_ROOT, 'node_modules', 'zod')),
+);
 app.use(express.static(path.join(PROJECT_ROOT, 'public')));
 app.use(express.urlencoded({ extended: true }));
 

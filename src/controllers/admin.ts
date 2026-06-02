@@ -1,11 +1,6 @@
 import type { RequestHandler } from 'express';
 import { Admin } from '../models/index.js';
-
-interface AdminBody {
-  username?: string;
-  email?: string;
-  password?: string;
-}
+import { adminCreateSchema, adminUpdateSchema } from '../shared/adminSchema.js';
 
 export const listAdmins: RequestHandler = async (_req, res) => {
   const admins = await Admin.findAll({ order: [['createdAt', 'ASC']] });
@@ -17,22 +12,24 @@ export const newAdminForm: RequestHandler = (_req, res) => {
 };
 
 export const createAdmin: RequestHandler = async (req, res) => {
-  const { username, email, password } = (req.body ?? {}) as AdminBody;
-
-  if (!username || !email || !password) {
-    req.session.flash = { type: 'danger', message: 'All fields are required.' };
+  const parsed = adminCreateSchema.safeParse(req.body ?? {});
+  if (!parsed.success) {
+    const firstMessage =
+      parsed.error.issues[0]?.message ?? 'All fields are required.';
+    req.session.flash = { type: 'danger', message: firstMessage };
     res.redirect('/admin/admins/new');
     return;
   }
+  const { username, email, password } = parsed.data;
 
-  const existing = await Admin.findOne({ where: { username: username.trim() } });
+  const existing = await Admin.findOne({ where: { username } });
   if (existing) {
     req.session.flash = { type: 'danger', message: `Username "${username}" is already taken.` };
     res.redirect('/admin/admins/new');
     return;
   }
 
-  await Admin.create({ username: username.trim(), email: email.trim(), password });
+  await Admin.create({ username, email, password });
 
   req.session.flash = { type: 'success', message: `Admin "${username}" created successfully.` };
   res.redirect('/admin/admins');
@@ -58,20 +55,28 @@ export const updateAdmin: RequestHandler = async (req, res) => {
     return;
   }
 
-  const { username, email, password } = (req.body ?? {}) as AdminBody;
+  const parsed = adminUpdateSchema.safeParse(req.body ?? {});
+  if (!parsed.success) {
+    const firstMessage =
+      parsed.error.issues[0]?.message ?? 'Invalid input.';
+    req.session.flash = { type: 'danger', message: firstMessage };
+    res.redirect(`/admin/admins/${admin.id}/edit`);
+    return;
+  }
+  const { username, email, password } = parsed.data;
 
-  if (username && username.trim() !== admin.username) {
-    const existing = await Admin.findOne({ where: { username: username.trim() } });
+  if (username !== admin.username) {
+    const existing = await Admin.findOne({ where: { username } });
     if (existing) {
       req.session.flash = { type: 'danger', message: `Username "${username}" is already taken.` };
       res.redirect(`/admin/admins/${admin.id}/edit`);
       return;
     }
-    admin.username = username.trim();
+    admin.username = username;
   }
 
-  if (email) admin.email = email.trim();
-  if (password) admin.password = password;
+  admin.email = email;
+  if (password !== undefined) admin.password = password;
 
   await admin.save();
 

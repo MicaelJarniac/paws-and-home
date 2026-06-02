@@ -9,9 +9,13 @@
   </footer>
 
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/theme.js"></script>
+  <script src="/js/client/theme.js"></script>
   <% for (let script of (locals.additionalScripts || [])) { %>
-    <script src="<%= script %>"></script>
+    <% if (typeof script === 'string') { %>
+      <script src="<%= script %>"></script>
+    <% } else { %>
+      <script src="<%= script.src %>"<% if (script.type) { %> type="<%= script.type %>"<% } %>></script>
+    <% } %>
   <% } %>
 </body>
 </html>

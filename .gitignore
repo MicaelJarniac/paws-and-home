@@ -3,8 +3,7 @@ database.sqlite
 
 # Compiled TypeScript output
 dist/
-public/js/*.js
-public/js/*.map
+public/js/
 
 # Internal planning/scratchpad
 .sisyphus/
