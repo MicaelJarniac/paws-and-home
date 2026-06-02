@@ -20,7 +20,7 @@ module.exports = {
       return;
     }
 
-    const passwordHash = await bcrypt.hash('admin123', 10);
+    const passwordHash = await bcrypt.hash('admin', 10);
     const now = new Date();
     await queryInterface.bulkInsert('Admins', [
       {
